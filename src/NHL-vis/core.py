@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from typing import List
 
 
-df = pd.read_csv("nhl_player_expanded.csv")
+df = pd.read_csv("nhl_players_cleaned.csv")
 
 
 def get_player_stats(name: str, season=None, aggr=True):
@@ -191,7 +191,7 @@ def score_scatter(player=None, season=None, team=None, metrics=["G", "A"]):
 
 
 
-score_scatter(player= "Connor McDavid", team="EDM", metrics=["S%", "G"])
-score_plot("Connor McDavid", 20242025)
+score_scatter(player= "Connor McDavid", season=2024, team="EDM", metrics=["A", "G"])
+score_plot("Connor McDavid", 2024)
 
 # TODO: Fix seasons in the csv.
