@@ -159,7 +159,6 @@ def score_plot(player, season=2024, metrics=["P", "G", "A"]):
     fig.show()
 
 
-# TODO: Filter data before so it's more meaningful? 
 def score_scatter(player=None, season=None, team=None, metrics=["G", "A"]):
 
     if season is not None:
@@ -181,17 +180,44 @@ def score_scatter(player=None, season=None, team=None, metrics=["G", "A"]):
         axis=1
     )
 
+    color_map = {}
+
+    if player is not None:
+        color_map[player] = "red"
+
+    if team is not None:
+        color_map[team] = "blue"
+
+    if player is not None and team is not None:
+        color_map[f"{player} / {team}"] = "purple"
+
+    color_map["Other"] = "lightgray"
+
+    if player is None and team is None:
+        color_map["Other"] = "blue"
+
+
+    min_size, max_size = 1, 15
+
+    gp_min = data["GP"].min()
+    gp_max = data["GP"].max()
+
+    data["size"] = (
+        (data["GP"] - gp_min) / (gp_max - gp_min) * (max_size - min_size) + min_size
+    )
+
     fig = px.scatter(
         data, x=metrics[0], y=metrics[1],
         color="highlight", hover_name="Player",
         hover_data = ["Team", "G", "A", "P", "S/C", "Pos", "GP", "GWG", "S%"],
-        title=f"NHL {metrics[0]} and {metrics[1]}"
+        title=f"NHL {metrics[0]} and {metrics[1]}",
+        color_discrete_map=color_map,
+        size= "size",
+        size_max=max_size
     )
     fig.show()
 
 
 
-score_scatter(player= "Connor McDavid", season=2024, team="EDM", metrics=["A", "G"])
+score_scatter(season=2024, metrics=["A", "G"])
 score_plot("Connor McDavid", 2024)
-
-# TODO: Fix seasons in the csv.
