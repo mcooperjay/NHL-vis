@@ -116,7 +116,7 @@ def get_roster_stats(team, season):
 
     return data
 
-def score_plot(player, season=2024, metrics=["P", "G", "A"]):
+def score_plot(player, season=2024, metrics=["P", "G", "A"], df=df):
     """
     Plots a player's goals, assists, and points relative to the league averages.
 
@@ -158,7 +158,7 @@ def score_plot(player, season=2024, metrics=["P", "G", "A"]):
     fig.show()
 
 
-def score_scatter(player=None, season=None, team=None, metrics=["G", "A"]):
+def score_scatter(player=None, season=None, team=None, metrics=["G", "A"], df=df):
 
     if season is not None:
         data = df[df["Season"]==season].copy()
