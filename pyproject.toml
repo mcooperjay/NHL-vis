@@ -3,8 +3,8 @@ requires = ["uv_build >= 0.9.5, <0.10.0"]
 build-backend = "uv_build"
 
 [project]
-name = "NHL-vis-386"
-version = "0.1.0"
+name = "nhl_vis_386"
+version = "0.1.1"
 description = "Simple functions for obtaining and visualizing NHL data"
 readme = "README.md"
 license = { text = "MIT" }
@@ -21,3 +21,6 @@ dependencies = [
 Homepage = "https://github.com/mcooperjay/NHL-vis"
 Repository = "https://github.com/mcooperjay/NHL-vis.git"
 Issues = "https://github.com/mcooperjay/NHL-vis/issues"
+
+[tool.uv_build]
+package-dir = "src"

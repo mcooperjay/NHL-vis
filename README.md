@@ -1,4 +1,4 @@
-# NHL-vis-386
+# nhl_vis_386
 
 Class package to analyze NHL player data from the last 25 years.
 
@@ -13,7 +13,7 @@ This package features:
 ## Installation
 
 ```bash
-pip install NHL-vis-386
+pip install nhl_vis_386 
 ```
 
 ## Usage
