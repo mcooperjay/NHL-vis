@@ -1,10 +1,9 @@
 import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
-from typing import List
 
 
-df = pd.read_csv("nhl_players_cleaned.csv")
+df = pd.read_csv("NHL-vis/nhl_players_cleaned.csv")
 
 
 def get_player_stats(name: str, season=None, aggr=True):
@@ -221,3 +220,5 @@ def score_scatter(player=None, season=None, team=None, metrics=["G", "A"]):
 
 score_scatter(season=2024, metrics=["A", "G"])
 score_plot("Connor McDavid", 2024)
+get_player_stats("Connor McDavid", season=[2023, 2024], aggr=True)
+get_roster_stats("CHI", 2024)
