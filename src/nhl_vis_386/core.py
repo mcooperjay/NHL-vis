@@ -1,9 +1,14 @@
 import pandas as pd
 import plotly.express as px
-import matplotlib.pyplot as plt
+from pathlib import Path
 
 
-df = pd.read_csv("NHL-vis/nhl_players_cleaned.csv")
+
+BASE = Path(__file__).resolve().parent
+CSV_PATH = BASE / "nhl_players_cleaned.csv"
+
+
+df = pd.read_csv(CSV_PATH)
 
 
 def get_player_stats(name: str, season=None, aggr=True):
@@ -155,7 +160,7 @@ def score_plot(player, season=2024, metrics=["P", "G", "A"], df=df):
         title=f"{player} vs League Averages ({season})"
     )
 
-    fig.show()
+    return fig
 
 
 def score_scatter(player=None, season=None, team=None, metrics=["G", "A"], df=df):
@@ -214,11 +219,4 @@ def score_scatter(player=None, season=None, team=None, metrics=["G", "A"], df=df
         size= "size",
         size_max=max_size
     )
-    fig.show()
-
-
-
-score_scatter(season=2024, metrics=["A", "G"])
-score_plot("Connor McDavid", 2024)
-get_player_stats("Connor McDavid", season=[2023, 2024], aggr=True)
-get_roster_stats("CHI", 2024)
+    return fig
