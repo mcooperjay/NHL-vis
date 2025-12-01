@@ -170,11 +170,11 @@ def score_scatter(player=None, season=None, team=None, metrics=["G", "A"], df=df
     else:
         data = df.copy()
     def make_highlights(x, y):
-        if (x == player and y == team):
+        if (x == player and y in team):
             return f"{player} / {team}"
         elif x == player:
             return player
-        elif y == team:
+        elif y in team:
             return team
         else:
             return "Other"
