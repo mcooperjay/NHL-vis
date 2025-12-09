@@ -22,7 +22,7 @@ def get_player_stats(name: str, season=None, aggr=True):
     if player_df.empty:
         return pd.DataFrame()
 
-    # --- Fix: normalize season input ---
+    # Normalize season input
     if season is None:
         season_list = None
     elif isinstance(season, list):
@@ -33,6 +33,14 @@ def get_player_stats(name: str, season=None, aggr=True):
     # Filter by season(s)
     if season_list is not None:
         player_df = player_df[player_df["Season"].isin(season_list)]
+
+    # Remove unnamed index column if it exists
+    player_df = player_df.loc[:, ~player_df.columns.str.contains("^Unnamed")]
+
+    # Move "Player" column to the front
+    if "Player" in player_df.columns:
+        cols = ["Player"] + [c for c in player_df.columns if c != "Player"]
+        player_df = player_df[cols]
 
     if not aggr:
         return player_df
@@ -117,9 +125,18 @@ def get_roster_stats(team, season):
 
     data = df.copy()
     data = data[data["Team"].str.contains(team, case=False, regex=False)]
-    data = data[data["Season"]==season]
+    data = data[data["Season"] == season]
+
+    # Remove unnamed index columns
+    data = data.loc[:, ~data.columns.str.contains("^Unnamed")]
+
+    # Move "Player" column to the front if it exists
+    if "Player" in data.columns:
+        cols = ["Player"] + [c for c in data.columns if c != "Player"]
+        data = data[cols]
 
     return data
+
 
 def score_plot(player, season=2024, metrics=["P", "G", "A"], df=df):
     """
