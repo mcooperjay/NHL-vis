@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "nhl_vis_386"
-version = "0.1.9"
+version = "0.1.10"
 description = "Simple functions for obtaining and visualizing NHL data"
 readme = "README.md"
 license = { text = "MIT" }

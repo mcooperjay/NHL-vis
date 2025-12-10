@@ -88,7 +88,7 @@ def get_player_stats(name: str, season=None, aggr=True):
         "Season(s)": seasons,
         "Team(s)": teams,
         "S/C": sc,
-        "Position": pos,
+        "Pos": pos,
         "GP": gp,
         "S": s,
         "G": g,
