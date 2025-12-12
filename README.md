@@ -13,13 +13,12 @@ This package features:
 ## Installation
 
 ```bash
-pip install nhl_vis_386 
+pip install nhl-vis-386 
 ```
 
 ## Usage
 
 ```python
-
 # Get stats for a player in specific seasons, unaggregated
 get_player_stats("Connor Bedard", season=[2023, 2024], aggr=False)
 
@@ -31,8 +30,9 @@ score_scatter(player="Connor Bedard", season = 2024, metrics = ["A", "G"])
 
 # Visualize a player's scoring relative to the league average
 score_plot("Connor Bedard", season=2024)
-
 ```
+
+The full documentation can be found here ()
 
 ## License
 
