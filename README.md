@@ -32,7 +32,7 @@ score_scatter(player="Connor Bedard", season = 2024, metrics = ["A", "G"])
 score_plot("Connor Bedard", season=2024)
 ```
 
-The full documentation can be found here ()
+The full documentation can be found (here)[https://github.com/mcooperjay/NHL-vis/documentation.md]
 
 ## License
 
