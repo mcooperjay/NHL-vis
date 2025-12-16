@@ -2,37 +2,59 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-TEAM_ABBREV = "UTA"   # Utah Mammoth / Utah Hockey Club
+TEAM = "UTA"   # Utah Mammoth / Utah Hockey Club
 
 
 def run_analysis_pipeline():
     print("Running analysis pipeline...")
-    #Loading the data
+    #Loading the data and Constants
     df = pd.read_csv("src/nhl_vis_386/nhl_players_cleaned.csv")
-    gaps = compute_team_gaps(df, "UTA" )
+    COUNT_METRICS = ["G", "A", "P", "S", "PIM", "+/-"]
+    PERCENT_METRICS = ["S%", "FOW%"]
+    df_count = dropna_metric(df, COUNT_METRICS)
+    df_perc = dropna_metric(df, PERCENT_METRICS)
     #Team v League
-    fig = plot_team_gaps(gaps)
-    fig.savefig("mammoth_gaps.png", dpi=300, bbox_inches="tight")
-    #Separated by Forwards and Defensevemen
+    gaps_counts = compute_team_gaps(df_count, TEAM, COUNT_METRICS)
+    fig = plot_team_gaps(gaps_counts)
+    fig.savefig("docs/count_mammoth_gaps.png", dpi=300, bbox_inches="tight")
+    
+    gaps_perc = compute_team_gaps(df_perc, TEAM, PERCENT_METRICS)
+    fig = plot_team_gaps(gaps_perc)
+    fig.savefig("docs/perc_mammoth_gaps.png", dpi=300, bbox_inches="tight")
     #Forwards
-    forward_gaps = compute_all_forward_gaps(df, "UTA")
-    fig = plot_all_forward_gaps(forward_gaps)
-    fig.savefig("forwards_mammoth_gaps.png", dpi=300)
-    # Forwards  and Defense (separated)
-    for pos in ["C", "L", "R"]:
-      print(f"Running for Position: {pos}")
-      gaps = compute_forward_position_gaps(df, "UTA", pos)
-      fig = plot_forward_position_gaps(gaps, pos)
-      fig.savefig(f"{pos}_mammoth_gaps.png", dpi=300)
-    #Scatterplot of Forwards
-    fig = scatter_metric_by_position(df, "UTA", "F", "TOI/GP", "P/GP")
-    fig.savefig("scatter_F_TOI_PGP.png", dpi=300)
+    forward_gaps_counts = compute_forward_gaps(df_count, TEAM, COUNT_METRICS)
+    fig = plot_all_forward_gaps(forward_gaps_counts)
+    fig.savefig("docs/forwards_gaps_counts.png", dpi=300)
+
+    forward_gaps_perc = compute_forward_gaps(df_perc, TEAM, PERCENT_METRICS)
+    fig = plot_all_forward_gaps(forward_gaps_perc)
+    fig.savefig("docs/forwards_gaps_percentages.png", dpi=300)
+
+    #Forwards and Defense separated out
+    for pos in ["C", "L", "R", "D"]:
+
+        # ---- Count metrics
+        df_pos_counts = dropna_metric(df, COUNT_METRICS)
+        gaps_counts = compute_position_gaps(
+            df_pos_counts, TEAM, pos, COUNT_METRICS
+        )
+        fig = plot_forward_position_gaps(gaps_counts, pos)
+        fig.savefig(f"docs/{pos}_counts.png", dpi=300)
+
+        # ---- Percentage metrics
+        df_pos_perc = dropna_metric(df, PERCENT_METRICS)
+        gaps_perc = compute_position_gaps(
+            df_pos_perc, TEAM, pos, PERCENT_METRICS
+        )
+        fig = plot_forward_position_gaps(gaps_perc, pos)
+        fig.savefig(f"docs/{pos}_percentages.png", dpi=300)
+    df_scatter = df.dropna(subset=["TOI/GP", "P/GP"])
+    fig = scatter_metric_by_position(df_scatter, TEAM, "F", "TOI/GP", "P/GP")
+    fig.savefig("docs/scatter_F_TOI_PGP.png", dpi=300)
 
     print("All analyses complete!")
-    print("Outputs written to current directory.")
 
-def compute_team_gaps(df, team_abbrev):
-    metrics = ["G", "A", "P", "S", "PIM", "+/-", "FOW%", "S%"]
+def compute_team_gaps(df, team_abbrev, metrics):
 
     team = df[df["Team"] == team_abbrev]
     league = df
@@ -50,36 +72,12 @@ def plot_team_gaps(gaps):
 
     ax.bar(gaps.index, gaps["gap"])
     ax.set_title("Utah Mammoth vs League Median")
-    ax.set_ylabel("League median - Mammoth median")
+    ax.set_ylabel("Utah − League (median)")
     ax.tick_params(axis="x", rotation=45)
     ax.axhline(0, linestyle="--")
 
     fig.tight_layout()
     return fig
-
-def compute_team_gaps_pos(df, team_abbrev, position):
-    metrics = ["G", "A", "P", "S", "PIM", "+/-", "FOW%", "S%"]
-
-    results = []
-
-    if position == "F":
-        positions = ["C", "L", "R"]
-    else:
-        positions = [position]
-
-    for pos in positions:
-        df_pos = df[df["Pos"] == pos]
-
-        team = df_pos[df_pos["Team"] == team_abbrev]
-        league = df_pos
-
-        for metric in metrics:
-          results.append({
-            "metric": metric, 
-            "position": pos, 
-            "gap":team[metric].median() - league[metric].median()
-          })
-    return pd.DataFrame(results)
 
 def plot_position_gaps(gaps, position):
     fig, ax = plt.subplots(figsize=(8, 5))
@@ -90,7 +88,7 @@ def plot_position_gaps(gaps, position):
     ax.axhline(0, linestyle="--")
 
     ax.set_title(f"Utah Mammoth vs League Median ({position})")
-    ax.set_ylabel("League median − Mammoth median")
+    ax.set_ylabel("Utah − League (median)")
     ax.tick_params(axis="x", rotation=45)
 
     fig.tight_layout()
@@ -125,8 +123,7 @@ def scatter_metric_by_position(df, team_abbrev, position, x, y):
     fig.tight_layout()
     return fig
 
-def compute_all_forward_gaps(df, team_abbrev):
-    metrics = ["G", "A", "P", "S", "PIM", "+/-", "FOW%", "S%"]
+def compute_forward_gaps(df, team_abbrev, metrics):
 
     df_forwards = df[df["Pos"].isin(["C", "L", "R"])]
 
@@ -150,14 +147,13 @@ def plot_all_forward_gaps(gaps):
     ax.axhline(0, linestyle="--")
 
     ax.set_title("Utah Mammoth vs League Median — All Forwards")
-    ax.set_ylabel("League median − Mammoth median")
+    ax.set_ylabel("Utah − League (median)")
     ax.tick_params(axis="x", rotation=45)
 
     fig.tight_layout()
     return fig
 
-def compute_forward_position_gaps(df, team_abbrev, position):
-    metrics = ["G", "A", "P", "S", "PIM", "+/-", "FOW%", "S%"]
+def compute_position_gaps(df, team_abbrev, position, metrics):
 
     df_pos = df[df["Pos"] == position]
 
@@ -167,6 +163,7 @@ def compute_forward_position_gaps(df, team_abbrev, position):
     gaps = {
         metric: team[metric].median() - league[metric].median()
         for metric in metrics
+        if metric in df_pos.columns
     }
 
     return pd.DataFrame({
@@ -181,11 +178,14 @@ def plot_forward_position_gaps(gaps, position):
     ax.axhline(0, linestyle="--")
 
     ax.set_title(f"Utah Mammoth vs League Median — {position}")
-    ax.set_ylabel("League median − Mammoth median")
+    ax.set_ylabel("Utah − League (median)")
     ax.tick_params(axis="x", rotation=45)
 
     fig.tight_layout()
     return fig
+
+def dropna_metric(df, metrics):
+  return df.dropna(subset=metrics)
 
 if __name__ == "__main__":
     run_analysis_pipeline()
