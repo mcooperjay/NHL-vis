@@ -49,8 +49,8 @@ def run_analysis_pipeline():
         fig = plot_forward_position_gaps(gaps_perc, pos)
         fig.savefig(f"docs/{pos}_percentages.png", dpi=300)
     df_scatter = df.dropna(subset=["TOI/GP", "P/GP"])
-    fig = scatter_metric_by_position(df_scatter, TEAM, "F", "TOI/GP", "P/GP")
-    fig.savefig("docs/scatter_F_TOI_PGP.png", dpi=300)
+    fig = scatter_metric_by_position(df_scatter, TEAM, "L", "S", "+/-")
+    fig.savefig("docs/scatter.png", dpi=300)
 
     print("All analyses complete!")
 
