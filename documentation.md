@@ -3,7 +3,7 @@ title: NHL-Vis-386 Documentation
 author: Timothy Hardy and Cooper Maughan
 ---
 
-## Package installation and import
+## Package Installation and Import
 
 Install NHL-Vis-386 with the following code:
 
