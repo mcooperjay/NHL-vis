@@ -53,9 +53,9 @@ Metrics are divided into two categories: **counting metrics** and **percentage (
 
 - **Shooting Percentage (S%):**  
   The percentage of shots on goal that result in goals, calculated as:
-  \[
+  $[
   \text{Shooting Percentage} = \frac{\text{Goals}}{\text{Shots}} \times 100
-  \]
+  $]
   This metric reflects scoring efficiency rather than shot volume.
 
 - **Faceoff Win Percentage (FOW%):**  

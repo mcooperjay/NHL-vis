@@ -36,6 +36,35 @@ ul.task-list li input[type="checkbox"] {
 <link href="Analysis_writeup_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Analysis_writeup_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -146,7 +175,8 @@ This metric serves as a rough indicator of two-way impact but is influenced by t
 <h4 class="anchored" data-anchor-id="percentage-metrics">Percentage Metrics</h4>
 <ul>
 <li><p><strong>Shooting Percentage (S%):</strong><br>
-The percentage of shots on goal that result in goals, calculated as: [ = ] This metric reflects scoring efficiency rather than shot volume.</p></li>
+The percentage of shots on goal that result in goals, calculated as: <span class="math inline">\([
+\text{Shooting Percentage} = \frac{\text{Goals}}{\text{Shots}} \times 100\)</span>] This metric reflects scoring efficiency rather than shot volume.</p></li>
 <li><p><strong>Faceoff Win Percentage (FOW%):</strong><br>
 The percentage of faceoffs won by a player. This metric is primarily relevant for centers, who take the majority of faceoffs.</p></li>
 </ul>
