@@ -21,9 +21,12 @@ From a roster-building perspective, identifying areas of underperformance can pr
 The data were scraped from the NHL API and include player in-season statistics from the **2000–2001 through 2024–2025 seasons**. Each season is treated independently, meaning that a player appearing in multiple seasons is recorded as a separate observation for each season.
 
 The dataset includes **skaters only** (goalies are excluded) and contains metrics specific to player position. Positions are categorized as 
-* Centers (C): primarily takes faceoffs, plays both offense and defense
-* Left Wings (L) and Right Wings (R): primarily offensive roles, responsible for scoring and assisting.
-* Defensemen (D): primarily defensive, preventing opponents from scoring
+
+- Centers (C): primarily takes faceoffs, plays both offense and defense
+
+- Left Wings (L) and Right Wings (R): primarily offensive roles, responsible for scoring and assisting.
+
+- Defensemen (D): primarily defensive, preventing opponents from scoring
 
 ### 2.2 Metric Definitions
 
@@ -67,7 +70,9 @@ Metrics are divided into two categories: **counting metrics** and **percentage (
 ### 2.3 Handling Missing Values
 
 For each metric group, players with missing values are removed **only for that specific analysis**. This ensures that:
+
 - Faceoff metrics are not distorted by non-centers, and
+
 - Shooting percentage is calculated only where meaningful.
 
 This approach preserves as much data as possible while maintaining valid comparisons.
