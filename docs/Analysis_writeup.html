@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e4a8361a59e032a9b5ef315b3292c027.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-0444fe2f0ed0bd01b45bf543c7ebf396.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -216,7 +216,7 @@ window.Quarto = {
   <li><a href="#right-wings-r" id="toc-right-wings-r" class="nav-link" data-scroll-target="#right-wings-r">5.3 Right Wings (R)</a></li>
   <li><a href="#defensemen-d" id="toc-defensemen-d" class="nav-link" data-scroll-target="#defensemen-d">5.4 Defensemen (D)</a></li>
   </ul></li>
-  <li><a href="#ice-time-vs-production" id="toc-ice-time-vs-production" class="nav-link" data-scroll-target="#ice-time-vs-production">6. Ice Time vs Production</a></li>
+  <li><a href="#shots-vs-plus-minus" id="toc-shots-vs-plus-minus" class="nav-link" data-scroll-target="#shots-vs-plus-minus">6. Shots vs Plus-Minus</a></li>
   <li><a href="#summary-and-takeaways" id="toc-summary-and-takeaways" class="nav-link" data-scroll-target="#summary-and-takeaways">7. Summary and Takeaways</a>
   <ul class="collapse">
   <li><a href="#strengths" id="toc-strengths" class="nav-link" data-scroll-target="#strengths">7.1 Strengths</a></li>
@@ -252,7 +252,7 @@ window.Quarto = {
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
 <p>This analysis evaluates the on-ice performance of the <strong>Utah Mammoth (UTA)</strong> relative to the rest of the NHL using player-level data. The objective is to identify areas where Utah outperforms or underperforms league norms, with a focus on both counting statistics (e.g., goals, shots) and rate-based or percentage metrics (e.g., shooting percentage, faceoff win percentage).</p>
-<p>From a roster-building perspective, identifying areas of underperformance can provide insight into positional needs and potential targets for drafting or trades. All comparisons are made using <strong>median values</strong>, which reduces the influence of outliers and better reflects the typical player contribution.</p>
+<p>From a roster-building perspective, identifying areas of underperformance can provide insight into positional needs and potential targets for drafting or trades. All comparisons are made using <strong>median values</strong>, which reduces the influence of outliers and better reflects the typical player contribution.Positive values indicate Utah is above the league median, while negative values indicate underperformance.</p>
 <hr>
 </section>
 <section id="data-and-methodology" class="level2">
@@ -260,7 +260,7 @@ window.Quarto = {
 <section id="data-source" class="level3">
 <h3 class="anchored" data-anchor-id="data-source">2.1 Data Source</h3>
 <p>The data were scraped from the NHL API and include player in-season statistics from the <strong>2000–2001 through 2024–2025 seasons</strong>. Each season is treated independently, meaning that a player appearing in multiple seasons is recorded as a separate observation for each season.</p>
-<p>The dataset includes <strong>skaters only</strong> (goalies are excluded) and contains metrics specific to player position. Positions are categorized as <strong>Centers (C), Left Wings (L), Right Wings (R), and Defensemen (D)</strong>.</p>
+<p>The dataset includes <strong>skaters only</strong> (goalies are excluded) and contains metrics specific to player position. Positions are categorized as * Centers (C): primarily takes faceoffs, plays both offense and defense * Left Wings (L) and Right Wings (R): primarily offensive roles, responsible for scoring and assisting. * Defensemen (D): primarily defensive, preventing opponents from scoring</p>
 </section>
 <section id="metric-definitions" class="level3">
 <h3 class="anchored" data-anchor-id="metric-definitions">2.2 Metric Definitions</h3>
@@ -277,7 +277,7 @@ The sum of goals and assists (<em>P = G + A</em>). This metric captures overall 
 <li><p><strong>Shots (S):</strong><br>
 The total number of shots on goal taken by a player.</p></li>
 <li><p><strong>Penalty Minutes (PIM):</strong><br>
-The total number of minutes a player spends penalized. Higher values may reflect physical play, but can also indicate discipline issues.</p></li>
+The total number of minutes a player spends penalized. Higher values may reflect physical play, but can also indicate discipline issues. Penalty minutes is also different from the rest of the metrics in that a higher value is to be considered worse.</p></li>
 <li><p><strong>Plus/Minus (+/−):</strong><br>
 A measure of on-ice goal differential. A player receives:</p>
 <ul>
@@ -294,7 +294,7 @@ This metric serves as a rough indicator of two-way impact but is influenced by t
 The percentage of shots on goal that result in goals, calculated as: <span class="math inline">\([
 \text{Shooting Percentage} = \frac{\text{Goals}}{\text{Shots}} \times 100\)</span>] This metric reflects scoring efficiency rather than shot volume.</p></li>
 <li><p><strong>Faceoff Win Percentage (FOW%):</strong><br>
-The percentage of faceoffs won by a player. This metric is primarily relevant for centers, who take the majority of faceoffs.</p></li>
+proportion of faceoffs won by the player. Particularly relevant for centers, as they primarily take faceoffs. Winning a faceoff gives your team possession and a chance to score.</p></li>
 </ul>
 </section>
 </section>
@@ -332,11 +332,11 @@ The percentage of faceoffs won by a player. This metric is primarily relevant fo
 </section>
 <section id="forward-group-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="forward-group-analysis">4. Forward Group Analysis</h2>
+<p>Forwards include Centers (C), Left Wings (L), and Right Wings (R).</p>
 <section id="all-forwards-counting-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="all-forwards-counting-metrics">4.1 All Forwards: Counting Metrics</h3>
 <p><img src="docs/forwards_gaps_counts.png" class="img-fluid"></p>
-<p>This analysis isolates forwards (C, L, R) to examine offensive production without defensive dilution.</p>
-<p><strong>Key observations:</strong> - The only counting metric in which Utah forwards underperform is <strong>plus/minus</strong>. - Metrics such as shots, goals, and points show stronger performance relative to the team-level comparison, suggesting that forwards are not the primary source of Utah’s overall scoring deficit.</p>
+<p><strong>Key observations:</strong> - The only counting metric in which Utah forwards underperform is <strong>plus/minus</strong> and <strong>penalty minutes</strong>. - Metrics such as shots, goals, and points show stronger performance relative to the team-level comparison, suggesting that forwards are not the primary source of Utah’s overall scoring deficit.</p>
 </section>
 <section id="all-forwards-percentage-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="all-forwards-percentage-metrics">4.2 All Forwards: Percentage Metrics</h3>
@@ -357,7 +357,11 @@ The percentage of faceoffs won by a player. This metric is primarily relevant fo
 <h3 class="anchored" data-anchor-id="left-wings-l">5.2 Left Wings (L)</h3>
 <p><img src="docs/L_counts.png" class="img-fluid"><br>
 <img src="docs/L_percentages.png" class="img-fluid"></p>
-<p><strong>Key observations:</strong> - Utah’s left wings outperform the league only in <strong>faceoff win percentage</strong>. - Shot volume for left wings is well below the league median, and the limited number of shots taken converts inefficiently. - Among all positions, <strong>left wing appears to be the clearest area of need</strong>, particularly in generating offensive opportunities.</p>
+<p><strong>Key observations:</strong> - Utah’s left wings outperform the league only in <strong>faceoff win percentage</strong>.</p>
+<ul>
+<li><p>Shot volume for left wings is well below the league median, and the limited number of shots taken converts inefficiently.</p></li>
+<li><p>Among all positions, <strong>left wing appears to be the clearest area of need</strong>, particularly in generating offensive opportunities.</p></li>
+</ul>
 </section>
 <section id="right-wings-r" class="level3">
 <h3 class="anchored" data-anchor-id="right-wings-r">5.3 Right Wings (R)</h3>
@@ -368,7 +372,12 @@ The percentage of faceoffs won by a player. This metric is primarily relevant fo
 <section id="defensemen-d" class="level3">
 <h3 class="anchored" data-anchor-id="defensemen-d">5.4 Defensemen (D)</h3>
 <p><img src="docs/D_counts.png" class="img-fluid"></p>
-<p><strong>Key observations:</strong> - Utah defensemen stand out primarily in <strong>penalty minutes</strong>, suggesting a more physical or aggressive style of play. - However, defensemen underperform in <strong>plus/minus</strong>, indicating potential issues in preventing scoring chances. - Shot production from defensemen is closer to the league median than for centers and is comparable to right wings. - Percentage-based metrics are excluded due to negligible differences in shooting percentage and missing faceoff data.</p>
+<p><strong>Key observations:</strong> - Utah defensemen stand out primarily in <strong>penalty minutes</strong>, suggesting a more physical or aggressive style of play.</p>
+<ul>
+<li><p>However, defensemen underperform in <strong>plus/minus</strong>, indicating potential issues in preventing scoring chances.</p></li>
+<li><p>Shot production from defensemen is closer to the league median than for centers and is comparable to right wings.</p></li>
+<li><p>Percentage-based metrics are excluded due to negligible differences in shooting percentage and missing faceoff data.</p></li>
+</ul>
 <hr>
 </section>
 </section>
