@@ -10,7 +10,7 @@ format:
 
 This analysis evaluates the on-ice performance of the **Utah Mammoth (UTA)** relative to the rest of the NHL using player-level data. The objective is to identify areas where Utah outperforms or underperforms league norms, with a focus on both counting statistics (e.g., goals, shots) and rate-based or percentage metrics (e.g., shooting percentage, faceoff win percentage).
 
-From a roster-building perspective, identifying areas of underperformance can provide insight into positional needs and potential targets for drafting or trades. All comparisons are made using **median values**, which reduces the influence of outliers and better reflects the typical player contribution.
+From a roster-building perspective, identifying areas of underperformance can provide insight into positional needs and potential targets for drafting or trades. All comparisons are made using **median values**, which reduces the influence of outliers and better reflects the typical player contribution.Positive values indicate Utah is above the league median, while negative values indicate underperformance.
 
 ------------------------------------------------------------------------
 
@@ -20,7 +20,10 @@ From a roster-building perspective, identifying areas of underperformance can pr
 
 The data were scraped from the NHL API and include player in-season statistics from the **2000–2001 through 2024–2025 seasons**. Each season is treated independently, meaning that a player appearing in multiple seasons is recorded as a separate observation for each season.
 
-The dataset includes **skaters only** (goalies are excluded) and contains metrics specific to player position. Positions are categorized as **Centers (C), Left Wings (L), Right Wings (R), and Defensemen (D)**.
+The dataset includes **skaters only** (goalies are excluded) and contains metrics specific to player position. Positions are categorized as 
+* Centers (C): primarily takes faceoffs, plays both offense and defense
+* Left Wings (L) and Right Wings (R): primarily offensive roles, responsible for scoring and assisting.
+* Defensemen (D): primarily defensive, preventing opponents from scoring
 
 ### 2.2 Metric Definitions
 
@@ -34,14 +37,14 @@ Metrics are divided into two categories: **counting metrics** and **percentage (
 - **Assists (A):**  
   The total number of assists recorded by a player, including both primary and secondary assists.
 
-- **Points (P):**  
+- **Points (P):**   
   The sum of goals and assists (*P = G + A*). This metric captures overall offensive contribution.
 
 - **Shots (S):**  
   The total number of shots on goal taken by a player.
 
 - **Penalty Minutes (PIM):**  
-  The total number of minutes a player spends penalized. Higher values may reflect physical play, but can also indicate discipline issues.
+  The total number of minutes a player spends penalized. Higher values may reflect physical play, but can also indicate discipline issues. Penalty minutes is also different from the rest of the metrics in that a higher value is to be considered worse. 
 
 - **Plus/Minus (+/−):**  
   A measure of on-ice goal differential. A player receives:
@@ -59,7 +62,7 @@ Metrics are divided into two categories: **counting metrics** and **percentage (
   This metric reflects scoring efficiency rather than shot volume.
 
 - **Faceoff Win Percentage (FOW%):**  
-  The percentage of faceoffs won by a player. This metric is primarily relevant for centers, who take the majority of faceoffs.
+  proportion of faceoffs won by the player. Particularly relevant for centers, as they primarily take faceoffs. Winning a faceoff gives your team possession and a chance to score.
 
 ### 2.3 Handling Missing Values
 
@@ -107,14 +110,14 @@ To better understand the source of these team-level trends, the following sectio
 
 ## 4. Forward Group Analysis
 
+Forwards include Centers (C), Left Wings (L), and Right Wings (R). 
+
 ### 4.1 All Forwards: Counting Metrics
 
 ![](docs/forwards_gaps_counts.png)
 
-This analysis isolates forwards (C, L, R) to examine offensive production without defensive dilution.
-
 **Key observations:**
-- The only counting metric in which Utah forwards underperform is **plus/minus**.
+- The only counting metric in which Utah forwards underperform is **plus/minus** and **penalty minutes**.
 - Metrics such as shots, goals, and points show stronger performance relative to the team-level comparison, suggesting that forwards are not the primary source of Utah’s overall scoring deficit.
 
 ### 4.2 All Forwards: Percentage Metrics
@@ -143,7 +146,9 @@ This analysis isolates forwards (C, L, R) to examine offensive production withou
 
 **Key observations:**
 - Utah’s left wings outperform the league only in **faceoff win percentage**.
+
 - Shot volume for left wings is well below the league median, and the limited number of shots taken converts inefficiently.
+
 - Among all positions, **left wing appears to be the clearest area of need**, particularly in generating offensive opportunities.
 
 ### 5.3 Right Wings (R)
@@ -160,13 +165,16 @@ This analysis isolates forwards (C, L, R) to examine offensive production withou
 
 **Key observations:**
 - Utah defensemen stand out primarily in **penalty minutes**, suggesting a more physical or aggressive style of play.
+
 - However, defensemen underperform in **plus/minus**, indicating potential issues in preventing scoring chances.
+
 - Shot production from defensemen is closer to the league median than for centers and is comparable to right wings.
+
 - Percentage-based metrics are excluded due to negligible differences in shooting percentage and missing faceoff data.
 
 ------------------------------------------------------------------------
 
-## 6. Ice Time vs Production
+## 6. Shots vs Plus-Minus
 
 ![](docs/scatter.png)
 
@@ -174,6 +182,7 @@ This scatterplot examines the relationship between **shots** and **plus/minus** 
 
 - Gray points represent league players
 - Red points represent Utah Mammoth players
+- X axis is the shots taken by a player, Y axis is the associated +/- of that player
 
 **Key observations:**
 - Utah left wings cluster at low shot totals and lower plus/minus values, reinforcing earlier findings that this position group struggles to generate offense and positively impact goal differential.
