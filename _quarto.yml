@@ -22,7 +22,7 @@ website:
   
 format:
   html:
-    theme: cerulean
+    theme: sandstone
     toc: true
     code-fold: true
     code-tools: true
