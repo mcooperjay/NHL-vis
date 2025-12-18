@@ -52,8 +52,8 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source">2.1 Data Source</a></li>
   <li><a href="#metric-groups" id="toc-metric-groups" class="nav-link" data-scroll-target="#metric-groups">2.2 Metric Groups</a></li>
-  <li><a href="#na-handling" id="toc-na-handling" class="nav-link" data-scroll-target="#na-handling">2.3 NA Handling</a></li>
-  <li><a href="#definition-of-gap" id="toc-definition-of-gap" class="nav-link" data-scroll-target="#definition-of-gap">2.4 Definition of “Gap”</a></li>
+  <li><a href="#handling-missing-values" id="toc-handling-missing-values" class="nav-link" data-scroll-target="#handling-missing-values">2.3 Handling Missing Values</a></li>
+  <li><a href="#definition-of-the-performance-gap" id="toc-definition-of-the-performance-gap" class="nav-link" data-scroll-target="#definition-of-the-performance-gap">2.4 Definition of the Performance Gap</a></li>
   </ul></li>
   <li><a href="#team-level-comparison-utah-vs-league" id="toc-team-level-comparison-utah-vs-league" class="nav-link" data-scroll-target="#team-level-comparison-utah-vs-league">3. Team-Level Comparison: Utah vs League</a>
   <ul class="collapse">
@@ -106,50 +106,47 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
-<p>This analysis compares the on-ice performance of the <strong>Utah Mammoth (UTA)</strong> to the rest of the NHL using player-level data. The goal is to identify areas where Utah outperforms or underperforms league norms, with a focus on both counting statistics (e.g., goals, shots) and rate-based or percentage metrics (e.g., shooting percentage, faceoff win percentage). In a fan appreciation of the Utah Mammoth, finding places where Utah underperforms compared to the league would provide an insight into positions or players that the Mammoth should trade for or draft to strengthen the team.</p>
-<p>All comparisons are made using <strong>median values</strong>, which reduces the influence of outliers and better reflects the typical player contribution.</p>
+<p>This analysis evaluates the on-ice performance of the <strong>Utah Mammoth (UTA)</strong> relative to the rest of the NHL using player-level data. The objective is to identify areas where Utah outperforms or underperforms league norms, with a focus on both counting statistics (e.g., goals, shots) and rate-based or percentage metrics (e.g., shooting percentage, faceoff win percentage).</p>
+<p>From a roster-building perspective, identifying areas of underperformance can provide insight into positional needs and potential targets for drafting or trades. All comparisons are made using <strong>median values</strong>, which reduces the influence of outliers and better reflects the typical player contribution.</p>
 <hr>
 </section>
 <section id="data-and-methodology" class="level2">
 <h2 class="anchored" data-anchor-id="data-and-methodology">2. Data and Methodology</h2>
 <section id="data-source" class="level3">
 <h3 class="anchored" data-anchor-id="data-source">2.1 Data Source</h3>
-<p>The data used was scraped from the NHL API, grabbing player in-season statistics from the 2000-2001 season to the 2024-2025 season. This data source treats each season as its own, meaning one player who played in two different seasons will be treated as two different players. This data source include skaters only, excluding goalies, and includes metrics based on player position. The player position is separated by Centers, Right wings, Left wings, and Defensivemen</p>
+<p>The data were scraped from the NHL API and include player in-season statistics from the <strong>2000–2001 through 2024–2025 seasons</strong>. Each season is treated independently, meaning that a player appearing in multiple seasons is counted as a separate observation for each season.</p>
+<p>The dataset includes <strong>skaters only</strong> (goalies are excluded) and contains metrics specific to player position. Positions are categorized as <strong>Centers (C), Left Wings (L), Right Wings (R), and Defensemen (D)</strong>.</p>
 </section>
 <section id="metric-groups" class="level3">
 <h3 class="anchored" data-anchor-id="metric-groups">2.2 Metric Groups</h3>
-<p>Metrics are separated into two groups:</p>
+<p>Metrics are divided into two categories:</p>
 <p><strong>Counting metrics</strong></p>
 <ul>
-<li>Goals (G)</li>
-<li>Assists (A)</li>
-<li>Points (P) This is the equivalent to Assists + Goals</li>
-<li>Shots (S)</li>
-<li>Penalty Minutes (PIM)</li>
-<li>Plus/Minus (+/-) This metric is measured as a +1 when a player is on the ice when their team scores one goal and a -1 when they are on the ice and their team allows a goal.</li>
+<li><p>Goals (G)</p></li>
+<li><p>Assists (A)</p></li>
+<li><p>Points (P), defined as goals plus assists</p></li>
+<li><p>Shots (S)</p></li>
+<li><p>Penalty Minutes (PIM)</p></li>
+<li><p>Plus/Minus (+/−), defined as +1 when a player is on the ice for a goal scored by their team and −1 when on the ice for a goal allowed</p></li>
 </ul>
 <p><strong>Percentage metrics</strong></p>
 <ul>
-<li>Shooting Percentage (S%)</li>
-<li>Faceoff Win Percentage (FOW%)</li>
+<li><p>Shooting Percentage (S%)</p></li>
+<li><p>Faceoff Win Percentage (FOW%)</p></li>
 </ul>
-<p>Percentage metrics are analyzed separately to avoid bias from missing values. The numeric differences in percentage metrics are minimal when compared to the numeric differences of the counting metrics. Counting for this seperately allows for better analysis and reasoning about the metrics.</p>
+<p>Percentage metrics are analyzed separately to avoid bias from missing values and because their numeric scales differ substantially from counting metrics. Treating these groups separately allows for clearer interpretation.</p>
 </section>
-<section id="na-handling" class="level3">
-<h3 class="anchored" data-anchor-id="na-handling">2.3 NA Handling</h3>
-<p>For each metric group, players with missing values for those metrics are removed <em>only for that specific analysis</em>. This ensures:</p>
-<ul>
-<li>Faceoff metrics are not distorted by non-centers, as centers primarily participate in Faceoffs and</li>
-<li>Shooting percentage is calculated only where meaningful</li>
-</ul>
+<section id="handling-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="handling-missing-values">2.3 Handling Missing Values</h3>
+<p>For each metric group, players with missing values are removed <strong>only for that specific analysis</strong>. This ensures that: - Faceoff metrics are not distorted by non-centers, and - Shooting percentage is calculated only where meaningful.</p>
 </section>
-<section id="definition-of-gap" class="level3">
-<h3 class="anchored" data-anchor-id="definition-of-gap">2.4 Definition of “Gap”</h3>
+<section id="definition-of-the-performance-gap" class="level3">
+<h3 class="anchored" data-anchor-id="definition-of-the-performance-gap">2.4 Definition of the Performance Gap</h3>
 <p>All reported gaps are calculated as:</p>
 <blockquote class="blockquote">
 <p><strong>Utah Mammoth median − League median</strong></p>
 </blockquote>
-<p>A positive value indicates Utah players outperform the league median, while a negative value indicates underperformance, with the exception of Penalty Minutes.</p>
+<p>Positive values indicate Utah players outperform the league median, while negative values indicate underperformance (with the exception of Penalty Minutes, where interpretation differs).</p>
 <hr>
 </section>
 </section>
@@ -159,39 +156,29 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="counting-metrics">3.1 Counting Metrics</h3>
 <p><img src="docs/count_mammoth_gaps.png" class="img-fluid"></p>
 <p>This figure compares Utah skaters to the league median across core box-score statistics.</p>
-<p><strong>Key observations:</strong></p>
-<ul>
-<li>From this plot we can see that the Mammoth severely underperform in the overall scoring of points as well as the plus/minus compared to the rest of the league</li>
-</ul>
+<p><strong>Key observations:</strong> - Utah underperforms the league median in overall scoring output, particularly in <strong>points</strong> and <strong>plus/minus</strong>, indicating weaker offensive production and goal differential at the team level.</p>
 </section>
 <section id="percentage-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="percentage-metrics">3.2 Percentage Metrics</h3>
-<p>(Figure: <code>perc_mammoth_gaps.png</code>) <img src="docs/perc_mammoth_gaps.png" class="img-fluid"></p>
+<p><img src="docs/perc_mammoth_gaps.png" class="img-fluid"></p>
 <p>This figure focuses on efficiency-based metrics.</p>
-<p><strong>Key observations:</strong></p>
-<ul>
-<li>The Mammoth overperform compared to the league in the percentage metrics.</li>
-</ul>
-<p>Next, we will look at the Forwards (Centers, Left wings and Right wings) and Defensivemen to see what differences lie there as well as see what group explains the underperformance on the team scale.</p>
+<p><strong>Key observations:</strong> - Utah outperforms the league median in percentage-based metrics, suggesting reasonable efficiency despite lower overall volume.</p>
+<p>To better understand the source of these team-level trends, the following sections examine forwards and defensemen separately.</p>
+<hr>
 </section>
 </section>
 <section id="forward-group-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="forward-group-analysis">4. Forward Group Analysis</h2>
 <section id="all-forwards-counting-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="all-forwards-counting-metrics">4.1 All Forwards: Counting Metrics</h3>
-<p>(Figure: <code>forwards_gaps_counts.png</code>) <img src="docs/forwards_gaps_counts.png" class="img-fluid"></p>
-<p>This section isolates forwards (C, L, R) to examine offensive production without defensive dilution.</p>
-<p><strong>Key observations:</strong></p>
-<ul>
-<li>The only category in which the Mammoth underperform for the counting metrics is the plus/minus. Some of the other categories such as shots, goals points are higher than the difference based on team.</li>
-</ul>
+<p><img src="docs/forwards_gaps_counts.png" class="img-fluid"></p>
+<p>This analysis isolates forwards (C, L, R) to examine offensive production without defensive dilution.</p>
+<p><strong>Key observations:</strong> - The only counting metric in which Utah forwards underperform is <strong>plus/minus</strong>. - Metrics such as shots, goals, and points show stronger performance relative to the team-level comparison, suggesting that forwards are not the primary source of Utah’s overall scoring deficit.</p>
 </section>
 <section id="all-forwards-percentage-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="all-forwards-percentage-metrics">4.2 All Forwards: Percentage Metrics</h3>
-<p>(Figure: <code>forwards_gaps_percentages.png</code>) <img src="docs/forwards_gaps_percentages.png" class="img-fluid"> <strong>Key observations:</strong></p>
-<ul>
-<li>There seems to be no significant difference when split into forwards when compared to the rest of the league.</li>
-</ul>
+<p><img src="docs/forwards_gaps_percentages.png" class="img-fluid"></p>
+<p><strong>Key observations:</strong> - There are no substantial differences between Utah forwards and the league median in efficiency-based metrics.</p>
 <hr>
 </section>
 </section>
@@ -199,59 +186,38 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="position-specific-analysis">5. Position-Specific Analysis</h2>
 <section id="centers-c" class="level3">
 <h3 class="anchored" data-anchor-id="centers-c">5.1 Centers (C)</h3>
-<ul>
-<li><p>Counting metrics: <code>C_counts.png</code></p></li>
-<li><p>Percentage metrics: <code>C_percentages.png</code> <img src="docs/C_counts.png" class="img-fluid"> <img src="docs/C_percentages.png" class="img-fluid"> <strong>Key observations:</strong></p></li>
-<li><p>The only area that the Centers are underperforming is in the plus/minus. No significant differences otherwise.</p></li>
-</ul>
+<p><img src="docs/C_counts.png" class="img-fluid"><br>
+<img src="docs/C_percentages.png" class="img-fluid"></p>
+<p><strong>Key observations:</strong> - Centers underperform the league primarily in <strong>plus/minus</strong>, with no meaningful deficits in other metrics.</p>
 </section>
 <section id="left-wings-l" class="level3">
 <h3 class="anchored" data-anchor-id="left-wings-l">5.2 Left Wings (L)</h3>
-<ul>
-<li>Counting metrics: <code>L_counts.png</code></li>
-<li>Percentage metrics: <code>L_percentages.png</code> <img src="docs/L_counts.png" class="img-fluid"> <img src="docs/L_percentages.png" class="img-fluid"></li>
-</ul>
-<p><strong>Key observations:</strong></p>
-<ul>
-<li>The Left Wings for Utah only lead the league in Faceoff win percentage. An interesting search into this metric is that Utah’s Left wings are not taking very many shots, and the shots that they are taking are not going into the net often. If Utah were to pick one position to improve, it would be this one.</li>
-</ul>
+<p><img src="docs/L_counts.png" class="img-fluid"><br>
+<img src="docs/L_percentages.png" class="img-fluid"></p>
+<p><strong>Key observations:</strong> - Utah’s left wings outperform the league only in <strong>faceoff win percentage</strong>. - Shot volume for left wings is well below the league median, and the limited number of shots taken converts inefficiently. - Among all positions, <strong>left wing appears to be the clearest area of need</strong>, particularly in generating offensive opportunities.</p>
 </section>
 <section id="right-wings-r" class="level3">
 <h3 class="anchored" data-anchor-id="right-wings-r">5.3 Right Wings (R)</h3>
-<ul>
-<li>Counting metrics: <code>R_counts.png</code></li>
-<li>Percentage metrics: <code>R_percentages.png</code></li>
-</ul>
-<p><img src="docs/R_counts.png" class="img-fluid"> <img src="docs/R_percentages.png" class="img-fluid"> <strong>Key observations:</strong></p>
-<ul>
-<li>Utah’s Right wings seem to be excelling in every metric except for Faceoff win percentage.</li>
-</ul>
+<p><img src="docs/R_counts.png" class="img-fluid"><br>
+<img src="docs/R_percentages.png" class="img-fluid"></p>
+<p><strong>Key observations:</strong> - Utah right wings perform above the league median in nearly every metric except faceoff win percentage, indicating strong overall contribution from this position group.</p>
 </section>
 <section id="defensemen-d" class="level3">
 <h3 class="anchored" data-anchor-id="defensemen-d">5.4 Defensemen (D)</h3>
-<ul>
-<li>Counting metrics: <code>D_counts.png</code></li>
-</ul>
 <p><img src="docs/D_counts.png" class="img-fluid"></p>
-<p><strong>Key observations:</strong></p>
-<ul>
-<li>Utah’s Defensivemen only really excell at penalty minutes. Utah’s defense also has a lower plus/minus, meaning that they allow more points and do not block players from having a scoring chance. It might payoff to have a more aggressive defense, but may also hurt that the defense spends more time off the ice.</li>
-</ul>
+<p><strong>Key observations:</strong> - Utah defensemen stand out primarily in <strong>penalty minutes</strong>, suggesting a more physical or aggressive style of play. - However, defensemen underperform in <strong>plus/minus</strong>, indicating potential issues in preventing scoring chances. - Shot production from defensemen is closer to the league median than for centers and is comparable to right wings. - Percentage-based metrics are excluded due to negligible differences in shooting percentage and missing faceoff data.</p>
 <hr>
 </section>
 </section>
 <section id="ice-time-vs-production" class="level2">
 <h2 class="anchored" data-anchor-id="ice-time-vs-production">6. Ice Time vs Production</h2>
-<p>(Figure: <code>scatter_F_TOI_PGP.png</code>) <img src="docs/scatter.png" class="img-fluid"></p>
-<p>This scatterplot examines the relationship between <strong>Shots</strong> and <strong>Plus/Minus</strong> for Left Wings.</p>
+<p><img src="docs/scatter.png" class="img-fluid"></p>
+<p>This scatterplot examines the relationship between <strong>shots</strong> and <strong>plus/minus</strong> for left wings.</p>
 <ul>
-<li>Gray points represent the league</li>
+<li>Gray points represent league players</li>
 <li>Red points represent Utah Mammoth players</li>
 </ul>
-<p><strong>Key observations:</strong></p>
-<ul>
-<li>This plot was created to explore exactly the left wing’s lack on the left side. As can be seen Utah is not taking many shots at all, and the plus minus is suffering.</li>
-</ul>
+<p><strong>Key observations:</strong> - Utah left wings cluster at low shot totals and lower plus/minus values, reinforcing earlier findings that this position group struggles to generate offense and positively impact goal differential.</p>
 <hr>
 </section>
 <section id="summary-and-takeaways" class="level2">
@@ -259,27 +225,35 @@ ul.task-list li input[type="checkbox"] {
 <section id="strengths" class="level3">
 <h3 class="anchored" data-anchor-id="strengths">7.1 Strengths</h3>
 <ul>
-<li>Utah leads in Faceoff win, shots, and goals.</li>
+<li>Utah performs well in <strong>faceoff win percentage</strong>, <strong>shot generation</strong>, and <strong>goal scoring</strong>.</li>
+<li>Centers and right wings generally exceed league median performance.</li>
+<li>Defensemen perform close to league average in most metrics.</li>
 </ul>
 </section>
 <section id="weaknesses" class="level3">
 <h3 class="anchored" data-anchor-id="weaknesses">7.2 Weaknesses</h3>
 <ul>
-<li>Utah’s Left wings in the forward need a lot of help in almost every metric. Utah also needs more help in plus/minus and strengthen defensive power and capability.</li>
+<li>Left wings significantly underperform across most metrics.</li>
+<li>Plus/minus remains a persistent weakness across multiple position groups.</li>
+<li>Defensive performance suggests issues with suppressing opponent scoring.</li>
 </ul>
 </section>
 <section id="roster-implications" class="level3">
 <h3 class="anchored" data-anchor-id="roster-implications">7.3 Roster Implications</h3>
 <ul>
-<li>Using the streamlit application, and filtering for Forwards, five players have been determined that are not super high talent, but higher than league average that Utah could look to trading for. These players are:</li>
-</ul>
+<li>Using the accompanying Streamlit application and filtering for forwards, several players were identified who perform above league average without representing top-tier salary commitments:
 <ol type="1">
-<li>Karill Kaprizov</li>
-<li>Jake Debrusk</li>
-<li>Patrik Laine</li>
-<li>Nick Paul</li>
+<li>Kirill Kaprizov<br>
+</li>
+<li>Jake DeBrusk<br>
+</li>
+<li>Patrik Laine<br>
+</li>
+<li>Nick Paul<br>
+</li>
 <li>Lucas Raymond</li>
-</ol>
+</ol></li>
+</ul>
 <hr>
 </section>
 </section>
@@ -287,16 +261,16 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="limitations-and-next-steps">8. Limitations and Next Steps</h2>
 <p><strong>Limitations:</strong></p>
 <ul>
-<li>Medians do not capture top-end talent</li>
-<li>League baseline includes Utah players</li>
-<li>Contextual effects (usage, teammates, competition) are not modeled, but play a large factor into the game.</li>
+<li><p>Median values do not capture elite, top-end talent.</p></li>
+<li><p>The league baseline includes Utah players.</p></li>
+<li><p>Contextual factors such as usage, teammates, and competition are not modeled.</p></li>
 </ul>
 <p><strong>Next steps:</strong></p>
 <ul>
-<li>Exclude Utah from league baseline</li>
-<li>Normalize gaps (percent or z-score)</li>
-<li>Incorporate expected goals (xG) or on-ice metrics</li>
-<li>Include a Secondary dataset that includes age for every player to measure performance by age.</li>
+<li><p>Exclude Utah from the league baseline.</p></li>
+<li><p>Normalize performance gaps using percentages or z-scores.</p></li>
+<li><p>Incorporate advanced metrics such as expected goals (xG).</p></li>
+<li><p>Add player age data to analyze performance across career stages.</p></li>
 </ul>
 </section>
 
