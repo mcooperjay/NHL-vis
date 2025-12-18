@@ -18,35 +18,48 @@ From a roster-building perspective, identifying areas of underperformance can pr
 
 ### 2.1 Data Source
 
-The data were scraped from the NHL API and include player in-season statistics from the **2000–2001 through 2024–2025 seasons**. Each season is treated independently, meaning that a player appearing in multiple seasons is counted as a separate observation for each season.
+The data were scraped from the NHL API and include player in-season statistics from the **2000–2001 through 2024–2025 seasons**. Each season is treated independently, meaning that a player appearing in multiple seasons is recorded as a separate observation for each season.
 
 The dataset includes **skaters only** (goalies are excluded) and contains metrics specific to player position. Positions are categorized as **Centers (C), Left Wings (L), Right Wings (R), and Defensemen (D)**.
 
-### 2.2 Metric Groups
+### 2.2 Metric Definitions
 
-Metrics are divided into two categories:
+Metrics are divided into two categories: **counting metrics** and **percentage (rate-based) metrics**. Definitions are provided below for clarity.
 
-**Counting metrics**
+#### Counting Metrics
 
-- Goals (G)
+- **Goals (G):**  
+  The total number of goals scored by a player during a season.
 
-- Assists (A)
+- **Assists (A):**  
+  The total number of assists recorded by a player, including both primary and secondary assists.
 
-- Points (P), defined as goals plus assists
+- **Points (P):**  
+  The sum of goals and assists (*P = G + A*). This metric captures overall offensive contribution.
 
-- Shots (S)
+- **Shots (S):**  
+  The total number of shots on goal taken by a player.
 
-- Penalty Minutes (PIM)
+- **Penalty Minutes (PIM):**  
+  The total number of minutes a player spends penalized. Higher values may reflect physical play, but can also indicate discipline issues.
 
-- Plus/Minus (+/−), defined as +1 when a player is on the ice for a goal scored by their team and −1 when on the ice for a goal allowed
+- **Plus/Minus (+/−):**  
+  A measure of on-ice goal differential. A player receives:
+  - **+1** when on the ice for a goal scored by their team, and
+  - **−1** when on the ice for a goal scored by the opposing team.  
+  This metric serves as a rough indicator of two-way impact but is influenced by team context.
 
-**Percentage metrics**
+#### Percentage Metrics
 
-- Shooting Percentage (S%)
+- **Shooting Percentage (S%):**  
+  The percentage of shots on goal that result in goals, calculated as:
+  \[
+  \text{Shooting Percentage} = \frac{\text{Goals}}{\text{Shots}} \times 100
+  \]
+  This metric reflects scoring efficiency rather than shot volume.
 
-- Faceoff Win Percentage (FOW%)
-
-Percentage metrics are analyzed separately to avoid bias from missing values and because their numeric scales differ substantially from counting metrics. Treating these groups separately allows for clearer interpretation.
+- **Faceoff Win Percentage (FOW%):**  
+  The percentage of faceoffs won by a player. This metric is primarily relevant for centers, who take the majority of faceoffs.
 
 ### 2.3 Handling Missing Values
 
@@ -54,13 +67,17 @@ For each metric group, players with missing values are removed **only for that s
 - Faceoff metrics are not distorted by non-centers, and
 - Shooting percentage is calculated only where meaningful.
 
+This approach preserves as much data as possible while maintaining valid comparisons.
+
 ### 2.4 Definition of the Performance Gap
 
 All reported gaps are calculated as:
 
 > **Utah Mammoth median − League median**
 
-Positive values indicate Utah players outperform the league median, while negative values indicate underperformance (with the exception of Penalty Minutes, where interpretation differs).
+Positive values indicate Utah players outperform the league median, while negative values indicate underperformance. For **Penalty Minutes**, interpretation differs, as higher values may reflect either physical play or increased time spent penalized.
+
+
 
 ------------------------------------------------------------------------
 

@@ -51,14 +51,14 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#data-and-methodology" id="toc-data-and-methodology" class="nav-link" data-scroll-target="#data-and-methodology">2. Data and Methodology</a>
   <ul class="collapse">
   <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source">2.1 Data Source</a></li>
-  <li><a href="#metric-groups" id="toc-metric-groups" class="nav-link" data-scroll-target="#metric-groups">2.2 Metric Groups</a></li>
+  <li><a href="#metric-definitions" id="toc-metric-definitions" class="nav-link" data-scroll-target="#metric-definitions">2.2 Metric Definitions</a></li>
   <li><a href="#handling-missing-values" id="toc-handling-missing-values" class="nav-link" data-scroll-target="#handling-missing-values">2.3 Handling Missing Values</a></li>
   <li><a href="#definition-of-the-performance-gap" id="toc-definition-of-the-performance-gap" class="nav-link" data-scroll-target="#definition-of-the-performance-gap">2.4 Definition of the Performance Gap</a></li>
   </ul></li>
   <li><a href="#team-level-comparison-utah-vs-league" id="toc-team-level-comparison-utah-vs-league" class="nav-link" data-scroll-target="#team-level-comparison-utah-vs-league">3. Team-Level Comparison: Utah vs League</a>
   <ul class="collapse">
-  <li><a href="#counting-metrics" id="toc-counting-metrics" class="nav-link" data-scroll-target="#counting-metrics">3.1 Counting Metrics</a></li>
-  <li><a href="#percentage-metrics" id="toc-percentage-metrics" class="nav-link" data-scroll-target="#percentage-metrics">3.2 Percentage Metrics</a></li>
+  <li><a href="#counting-metrics-1" id="toc-counting-metrics-1" class="nav-link" data-scroll-target="#counting-metrics-1">3.1 Counting Metrics</a></li>
+  <li><a href="#percentage-metrics-1" id="toc-percentage-metrics-1" class="nav-link" data-scroll-target="#percentage-metrics-1">3.2 Percentage Metrics</a></li>
   </ul></li>
   <li><a href="#forward-group-analysis" id="toc-forward-group-analysis" class="nav-link" data-scroll-target="#forward-group-analysis">4. Forward Group Analysis</a>
   <ul class="collapse">
@@ -114,31 +114,48 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="data-and-methodology">2. Data and Methodology</h2>
 <section id="data-source" class="level3">
 <h3 class="anchored" data-anchor-id="data-source">2.1 Data Source</h3>
-<p>The data were scraped from the NHL API and include player in-season statistics from the <strong>2000–2001 through 2024–2025 seasons</strong>. Each season is treated independently, meaning that a player appearing in multiple seasons is counted as a separate observation for each season.</p>
+<p>The data were scraped from the NHL API and include player in-season statistics from the <strong>2000–2001 through 2024–2025 seasons</strong>. Each season is treated independently, meaning that a player appearing in multiple seasons is recorded as a separate observation for each season.</p>
 <p>The dataset includes <strong>skaters only</strong> (goalies are excluded) and contains metrics specific to player position. Positions are categorized as <strong>Centers (C), Left Wings (L), Right Wings (R), and Defensemen (D)</strong>.</p>
 </section>
-<section id="metric-groups" class="level3">
-<h3 class="anchored" data-anchor-id="metric-groups">2.2 Metric Groups</h3>
-<p>Metrics are divided into two categories:</p>
-<p><strong>Counting metrics</strong></p>
+<section id="metric-definitions" class="level3">
+<h3 class="anchored" data-anchor-id="metric-definitions">2.2 Metric Definitions</h3>
+<p>Metrics are divided into two categories: <strong>counting metrics</strong> and <strong>percentage (rate-based) metrics</strong>. Definitions are provided below for clarity.</p>
+<section id="counting-metrics" class="level4">
+<h4 class="anchored" data-anchor-id="counting-metrics">Counting Metrics</h4>
 <ul>
-<li><p>Goals (G)</p></li>
-<li><p>Assists (A)</p></li>
-<li><p>Points (P), defined as goals plus assists</p></li>
-<li><p>Shots (S)</p></li>
-<li><p>Penalty Minutes (PIM)</p></li>
-<li><p>Plus/Minus (+/−), defined as +1 when a player is on the ice for a goal scored by their team and −1 when on the ice for a goal allowed</p></li>
-</ul>
-<p><strong>Percentage metrics</strong></p>
+<li><p><strong>Goals (G):</strong><br>
+The total number of goals scored by a player during a season.</p></li>
+<li><p><strong>Assists (A):</strong><br>
+The total number of assists recorded by a player, including both primary and secondary assists.</p></li>
+<li><p><strong>Points (P):</strong><br>
+The sum of goals and assists (<em>P = G + A</em>). This metric captures overall offensive contribution.</p></li>
+<li><p><strong>Shots (S):</strong><br>
+The total number of shots on goal taken by a player.</p></li>
+<li><p><strong>Penalty Minutes (PIM):</strong><br>
+The total number of minutes a player spends penalized. Higher values may reflect physical play, but can also indicate discipline issues.</p></li>
+<li><p><strong>Plus/Minus (+/−):</strong><br>
+A measure of on-ice goal differential. A player receives:</p>
 <ul>
-<li><p>Shooting Percentage (S%)</p></li>
-<li><p>Faceoff Win Percentage (FOW%)</p></li>
+<li><strong>+1</strong> when on the ice for a goal scored by their team, and</li>
+<li><strong>−1</strong> when on the ice for a goal scored by the opposing team.<br>
+This metric serves as a rough indicator of two-way impact but is influenced by team context.</li>
+</ul></li>
 </ul>
-<p>Percentage metrics are analyzed separately to avoid bias from missing values and because their numeric scales differ substantially from counting metrics. Treating these groups separately allows for clearer interpretation.</p>
+</section>
+<section id="percentage-metrics" class="level4">
+<h4 class="anchored" data-anchor-id="percentage-metrics">Percentage Metrics</h4>
+<ul>
+<li><p><strong>Shooting Percentage (S%):</strong><br>
+The percentage of shots on goal that result in goals, calculated as: [ = ] This metric reflects scoring efficiency rather than shot volume.</p></li>
+<li><p><strong>Faceoff Win Percentage (FOW%):</strong><br>
+The percentage of faceoffs won by a player. This metric is primarily relevant for centers, who take the majority of faceoffs.</p></li>
+</ul>
+</section>
 </section>
 <section id="handling-missing-values" class="level3">
 <h3 class="anchored" data-anchor-id="handling-missing-values">2.3 Handling Missing Values</h3>
 <p>For each metric group, players with missing values are removed <strong>only for that specific analysis</strong>. This ensures that: - Faceoff metrics are not distorted by non-centers, and - Shooting percentage is calculated only where meaningful.</p>
+<p>This approach preserves as much data as possible while maintaining valid comparisons.</p>
 </section>
 <section id="definition-of-the-performance-gap" class="level3">
 <h3 class="anchored" data-anchor-id="definition-of-the-performance-gap">2.4 Definition of the Performance Gap</h3>
@@ -146,20 +163,20 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p><strong>Utah Mammoth median − League median</strong></p>
 </blockquote>
-<p>Positive values indicate Utah players outperform the league median, while negative values indicate underperformance (with the exception of Penalty Minutes, where interpretation differs).</p>
+<p>Positive values indicate Utah players outperform the league median, while negative values indicate underperformance. For <strong>Penalty Minutes</strong>, interpretation differs, as higher values may reflect either physical play or increased time spent penalized.</p>
 <hr>
 </section>
 </section>
 <section id="team-level-comparison-utah-vs-league" class="level2">
 <h2 class="anchored" data-anchor-id="team-level-comparison-utah-vs-league">3. Team-Level Comparison: Utah vs League</h2>
-<section id="counting-metrics" class="level3">
-<h3 class="anchored" data-anchor-id="counting-metrics">3.1 Counting Metrics</h3>
+<section id="counting-metrics-1" class="level3">
+<h3 class="anchored" data-anchor-id="counting-metrics-1">3.1 Counting Metrics</h3>
 <p><img src="docs/count_mammoth_gaps.png" class="img-fluid"></p>
 <p>This figure compares Utah skaters to the league median across core box-score statistics.</p>
 <p><strong>Key observations:</strong> - Utah underperforms the league median in overall scoring output, particularly in <strong>points</strong> and <strong>plus/minus</strong>, indicating weaker offensive production and goal differential at the team level.</p>
 </section>
-<section id="percentage-metrics" class="level3">
-<h3 class="anchored" data-anchor-id="percentage-metrics">3.2 Percentage Metrics</h3>
+<section id="percentage-metrics-1" class="level3">
+<h3 class="anchored" data-anchor-id="percentage-metrics-1">3.2 Percentage Metrics</h3>
 <p><img src="docs/perc_mammoth_gaps.png" class="img-fluid"></p>
 <p>This figure focuses on efficiency-based metrics.</p>
 <p><strong>Key observations:</strong> - Utah outperforms the league median in percentage-based metrics, suggesting reasonable efficiency despite lower overall volume.</p>
