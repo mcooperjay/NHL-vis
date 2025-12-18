@@ -1,4 +1,7 @@
-# NHL-Vis-386
+---
+title: NHL-Vis-386 Documentation
+author: Timothy Hardy and Cooper Maughan
+---
 
 ## Package installation and import
 

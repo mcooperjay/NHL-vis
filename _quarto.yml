@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Utah Mammoth Positional Analysis"
+  description: "A STAT 386 Project by Cooper Maughan and Timothy Hardy"
+
+  navbar: 
+    background: primary
+    left:
+      - text: "Analysis"
+        href: Analysis_writeup.html
+      - text: "Package Info / Documentation"
+        href: documentation.html
+      - text: Interactive Streamlit App
+        href: https://nhl-explorer.streamlit.app/
+
+    right:
+      - icon: github
+        href: https://github.com/mcooperjay/NHL-vis
+  
+format:
+  html:
+    theme: yeti
+    toc: true
+    code-fold: true
+    code-tools: true
+    css: styles.css

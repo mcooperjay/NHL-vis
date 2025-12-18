@@ -85,7 +85,7 @@ Positive values indicate Utah players outperform the league median, while negati
 
 ### 3.1 Counting Metrics
 
-![](docs/count_mammoth_gaps.png)
+![](count_mammoth_gaps.png)
 
 This figure compares Utah skaters to the league median across core box-score statistics.
 
