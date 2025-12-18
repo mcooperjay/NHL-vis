@@ -13,7 +13,7 @@ website:
         href: Analysis_writeup.html
       - text: "Package Info / Documentation"
         href: documentation.html
-      - text: Interactive Streamlit App
+      - text: Interactive Streamlit App (external link)
         href: https://nhl-explorer.streamlit.app/
 
     right:
@@ -22,7 +22,7 @@ website:
   
 format:
   html:
-    theme: yeti
+    theme: cerulean
     toc: true
     code-fold: true
     code-tools: true
